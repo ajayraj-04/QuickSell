@@ -1,0 +1,66 @@
+<!-- The product form. Used for both Add and Edit.
+     "p" = the product (empty when adding), "action" = where the form is sent -->
+<form id="productForm" action="<%= action %>" method="POST" enctype="multipart/form-data">
+
+  <div class="mb-3">
+    <label class="form-label">Product Name</label>
+    <input type="text" class="form-control" name="name" value="<%= p.name || '' %>" required>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Category</label>
+      <select class="form-select" id="category" name="category">
+        <% categories.forEach(function (c) { %>
+          <option <%= p.category === c ? 'selected' : '' %>><%= c %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Type</label>
+      <!-- The types are filled by JavaScript (script.js) when the category is chosen -->
+      <select class="form-select" id="subcategory" name="subcategory" data-selected="<%= p.subcategory || '' %>"></select>
+    </div>
+  </div>
+
+  <!-- Send the category list to the browser so JavaScript can fill the types -->
+  <script>var categoryData = <%- JSON.stringify(categoryData) %>;</script>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Quantity</label>
+      <input type="text" class="form-control" name="quantity" placeholder="Example: 50 kg" value="<%= p.quantity || '' %>" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Price (Rs.)</label>
+      <input type="number" class="form-control" name="price" min="0" value="<%= p.price || '' %>" required>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Location</label>
+    <input type="text" class="form-control" name="location" placeholder="Example: Chennai" value="<%= p.location || '' %>" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea class="form-control" rows="3" name="description"><%= p.description || '' %></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Contact Phone (10 digits)</label>
+    <input type="text" class="form-control" id="phone" name="contactPhone" value="<%= p.contactPhone || '' %>" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Product Image <small class="text-muted">(maximum 2 MB)</small></label>
+    <input type="file" class="form-control" id="image" name="image" accept="image/*">
+
+    <!-- Preview: shows the old photo (edit) or the new chosen photo -->
+    <img id="preview" class="img-fluid mt-2 rounded"
+         style="max-height:200px; <%= p.image ? '' : 'display:none;' %>"
+         src="<%= p.image ? '/uploads/' + p.image : '' %>" alt="Preview">
+  </div>
+
+  <button type="submit" class="btn btn-success w-100"><%= buttonText %></button>
+</form>

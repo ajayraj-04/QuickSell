@@ -1,0 +1,14 @@
+<!-- One product card. Used on the Home page and the Browse page. The product comes in as "p" -->
+<div class="col-md-6 col-lg-4 mb-4">
+  <div class="card product-card h-100">
+    <img src="<%= p.image ? '/uploads/' + p.image : '/images/no-image.svg' %>" class="card-img-top product-img" alt="<%= p.name %>">
+    <div class="card-body">
+      <span class="badge bg-success"><%= p.category %></span>
+      <h5 class="card-title mt-2"><%= p.name %></h5>
+      <p class="price">Rs. <%= p.price %></p>
+      <p class="card-text mb-1">Quantity: <%= p.quantity %></p>
+      <p class="card-text">Location: <%= p.location %></p>
+      <a href="/products/<%= p._id %>" class="btn btn-success w-100">View Details</a>
+    </div>
+  </div>
+</div>
